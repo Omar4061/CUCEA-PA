@@ -50,6 +50,11 @@ $result = mysqli_query($conexion, $sql);
                 <div class="icono-buscador" id="icono-borrar-seleccionados" onclick="eliminarRegistrosSeleccionados()">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </div>
+                <!-- Icono agregado por Cass -->
+                 <div class="icono-buscador" id="icono-visualizar" onclick="visualizarInformacionProfesores()">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                 </div>
+                <!-- -->
                 <div class="icono-buscador" id="icono-descargar" onclick="mostrarPopupColumnas()">
                     <i class="fa fa-download" aria-hidden="true"></i>
                 </div>
@@ -378,11 +383,106 @@ $result = mysqli_query($conexion, $sql);
     </div>
 </div>
 
+<!-- Modal para visualizar información detallada del profesor by Cass -->
+            <!-- Referencias tomadas de los modales anteriores -->
+<div id="modal-visualizar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalVisualizar()">&times;</span>
+       
+        <!-- código del contenido del modal -->
+        <div class="container">
+        <div class="left-column">
+            <div class="profesor-header">
+                <div class="profesor-avatar">
+                    <span class="avatar-initials">FQ</span>
+                </div>
+                <div class="profesor-details">
+                    <h2 id="profesor-nombre">Fabiola Quezada Limón</h2>
+                    <p id="profesor-email">fabiolaquezada@academicos.udg.mx</p>
+                </div>
+            </div>
+            <div class="profesor-data">
+                <div class="data-row">
+                    <span class="data-label">Código</span>
+                    <span id="profesor-codigo" class="data-value">123456789</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Categoría</span>
+                    <span id="profesor-categoria" class="data-value">Asignatura B</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Horas asignadas</span>
+                    <span id="profesor-horas" class="data-value2">39/40</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Departamento</span>
+                    <span id="profesor-departamento" class="data-value">Administración</span>
+                </div>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="class-info">
+                <h3>Desarrollo de emprendedores</h3>
+                <div class="class-details">
+                    <div class="nrc-column">
+                    <span>NRC:</span>
+                    <span>141917</span>
+                    <span>151917</span>
+                    <span>167143</span>
+                    </div>
+                </div>
+                <div class="schedule-column">
+                <div>
+                    <span>07:00 - 8:55</span>
+                    <div class="weekdays">
+                        <div class="day">L</div>
+                        <div class="day active">M</div>
+                        <div class="day active">I</div>
+                        <div class="day">J</div>
+                        <div class="day">V</div>
+                    </div>
+                </div>
+                <div>
+                    <span>09:00 - 10:55</span>
+                    <div class="weekdays">
+                        <div class="day">L</div>
+                        <div class="day active">M</div>
+                        <div class="day">I</div>
+                        <div class="day">J</div>
+                        <div class="day">V</div>
+                    </div>
+                </div>
+                <div>
+                    <span>13:00 - 14:55</span>
+                    <div class="weekdays">
+                        <div class="day">L</div>
+                        <div class="day active">M</div>
+                        <div class="day active">I</div>
+                        <div class="day">J</div>
+                        <div class="day">V</div>
+                    </div>
+                </div>
+            </div>
+            <div class="building-column">
+                <span>Edificio F106</span>
+                <span>Edificio G302</span>
+                <span>Edificio C101</span>
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+        
+        <!-- fin contenido del modal -->
+    </div>
+</div>
+
 <script src="./JS/basesdedatos/tabla-editable.js"></script>
 <script src="./JS/basesdedatos/barra-busqueda.js"></script>
 <script src="./JS/basesdedatos/eliminar-registro.js"></script>
 <script src="./JS/basesdedatos/editar-registros.js"></script>
 <script src="./JS/basesdedatos/añadir-registro.js"></script>
 <script src="./JS/basesdedatos/descargar-data-excel.js"></script>
+<script src="./JS/basesdedatos/visualizar-profesores.js"></script> <!-- Llama el js de visualizar by Cass -->
 
 <?php include("./template/footer.php"); ?>
