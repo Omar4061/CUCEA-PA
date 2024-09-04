@@ -439,6 +439,126 @@ th {
   border: none;
 }
 
+/* CSS para el contenido del modal */
+.container {
+  display: flex;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  flex-direction: row; /* Para que el cuadro blanco y azul queden de manera horizontal */
+}
+
+.left-column {
+  flex: 1;
+  padding: 20px;
+}
+
+.right-column {
+  flex: 1;
+  background-color: #e6f3ff;
+  padding: 50px;
+}
+
+.profesor-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profesor-avatar {
+  width: 60px;
+  height: 60px;
+  background-color: #7D43C6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+.avatar-initials {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.profesor-details h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.profesor-details p {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+.data-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.data-label {
+  flex: 1;
+  font-weight: bold;
+}
+
+.data-value {
+  flex: 2;
+}
+
+.data-value2 {
+  flex: 2;
+  color: #8B6E3B;
+}
+
+.class-info {
+  background-color: white;
+  border-radius: 8px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.class-info h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.class-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.nrc-column, .schedule-column, .building-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weekdays {
+  display: flex;
+  gap: 5px;
+}
+
+.day {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.day.active {
+  background-color: #4a90e2;
+  color: white;
+}
+
 /* Media Queries para diferentes resoluciones */
 @media screen and (max-width: 1600px) and (min-width: 1401px) {
   .cuadro-principal {
@@ -526,3 +646,4 @@ th {
     z-index: 1; /* Asegurar que el encabezado esté por encima de las filas */
   }
 }
+
