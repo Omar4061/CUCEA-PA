@@ -390,7 +390,7 @@ $result = mysqli_query($conexion, $sql);
         <span class="close" onclick="cerrarModalVisualizar()">&times;</span>
        
         <!-- código del contenido del modal -->
-        <div class="container">
+        <div class="contenedor">
         <div class="left-column">
             <div class="profesor-header">
                 <div class="profesor-avatar">

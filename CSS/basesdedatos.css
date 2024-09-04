@@ -440,7 +440,7 @@ th {
 }
 
 /* CSS para el contenido del modal */
-.container {
+.contenedor {
   display: flex;
   max-width: 1000px;
   margin: 0 auto;
@@ -458,7 +458,7 @@ th {
 
 .right-column {
   flex: 1;
-  background-color: #e6f3ff;
+  background-color: white; /* fondo */
   padding: 50px;
 }
 
@@ -493,8 +493,9 @@ th {
 .profesor-details p {
   margin: 5px 0 0;
   color: #666;
+  text-decoration-color: #FDF8E4;
 }
-
+ 
 .data-row {
   display: flex;
   margin-bottom: 10px;
@@ -515,10 +516,11 @@ th {
 }
 
 .class-info {
-  background-color: white;
+  background-color: #F4F5F9; /* Cuadro */
   border-radius: 8px;
   padding: 5px;
   margin-bottom: 5px;
+  height: 80%;
 }
 
 .class-info h3 {
@@ -534,7 +536,7 @@ th {
 
 .nrc-column, .schedule-column, .building-column {
   display: flex;
-  flex-direction: column;
+  flex-direction:inherit;
   gap: 10px;
 }
 
