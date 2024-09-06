@@ -52,7 +52,7 @@ $result = mysqli_query($conexion, $sql);
                 </div>
                 <!-- Icono agregado por Cass -->
                  <div class="icono-buscador" id="icono-visualizar" onclick="visualizarInformacionProfesores()">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <i class="fa fa-user" aria-hidden="true"></i>
                  </div>
                 <!-- -->
                 <div class="icono-buscador" id="icono-descargar" onclick="mostrarPopupColumnas()">
@@ -416,7 +416,7 @@ $result = mysqli_query($conexion, $sql);
                 </div>
                 <div class="data-row">
                     <span class="data-label">Departamento</span>
-                    <span id="profesor-departamento" class="data-value">Administración</span>
+                    <span id="profesor-departamento" class="data-value3">Administración</span>
                 </div>
             </div>
         </div>
@@ -424,22 +424,26 @@ $result = mysqli_query($conexion, $sql);
             <div class="class-info">
                 <h3>Desarrollo de emprendedores</h3>
                 <div class="class-details">
-                    <div class="nrc-column">
-                    <span>NRC:</span>
-                    <span>141917</span>
-                    <span>151917</span>
-                    <span>167143</span>
+                <div class="nrc-column">
+                    <span>NRC</span><br>
+                    <span>141917</span><br>
+                    <span>151917</span><br>
+                    <span>167143</span><br>
                     </div>
-                </div>
+                
                 <div class="schedule-column">
+                    <div>
+                    <span>Horario</span>
+                    </div>
                 <div>
-                    <span>07:00 - 8:55</span>
+                    <span>07:00 - 8:55</span><br>
                     <div class="weekdays">
-                        <div class="day">L</div>
-                        <div class="day active">M</div>
+                        <div class="day active">L</div>
+                        <div class="day">M</div>
                         <div class="day active">I</div>
                         <div class="day">J</div>
                         <div class="day">V</div>
+                        <div class="day">S</div>
                     </div>
                 </div>
                 <div>
@@ -448,27 +452,30 @@ $result = mysqli_query($conexion, $sql);
                         <div class="day">L</div>
                         <div class="day active">M</div>
                         <div class="day">I</div>
-                        <div class="day">J</div>
+                        <div class="day active">J</div>
                         <div class="day">V</div>
+                        <div class="day">S</div>
                     </div>
                 </div>
                 <div>
-                    <span>13:00 - 14:55</span>
+                    <span>13:00 - 14:55</span><br>
                     <div class="weekdays">
                         <div class="day">L</div>
                         <div class="day active">M</div>
-                        <div class="day active">I</div>
-                        <div class="day">J</div>
+                        <div class="day">I</div>
+                        <div class="day active">J</div>
                         <div class="day">V</div>
+                        <div class="day">S</div>
                     </div>
                 </div>
             </div>
             <div class="building-column">
-                <span>Edificio F106</span>
-                <span>Edificio G302</span>
-                <span>Edificio C101</span>
+                <span>Edificio/Aula</span><br>
+                <span>F106</span><br>
+                <span>G302</span><br>
+                <span>C101</span><br>
             </div>
-        </div>
+            </div>
             </div>
         </div>
     </div>

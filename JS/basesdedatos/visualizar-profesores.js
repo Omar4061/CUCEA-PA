@@ -1,3 +1,4 @@
+// Código tomado de añadir registro editado a visualizar
 function mostrarFormularioVisualizar() {
     document.getElementById('modal-visualizar').style.display = 'block';
 }
@@ -17,6 +18,9 @@ window.onclick = function(event) {
         cerrarFormularioVisualizar();
     }
 }
+
+// js by Cass
+// Para que el Modal se pueda visualizar: 
 
 function visualizarInformacionProfesores() {
 
