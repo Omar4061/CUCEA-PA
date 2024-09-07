@@ -441,23 +441,20 @@ th {
 
 /* CSS para el contenido del modal */
 .contenedor {
-  display: flex;
   max-width: 1000px;
   margin: 0 auto;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
-
-  flex-direction: row; /* Para que el cuadro blanco y azul queden de manera horizontal */
+  border-collapse: collapse;
 }
 
-.left-column {
-  flex: 1;
+.left-column, .right-column {
   padding: 30px;
+  vertical-align: top;
 }
 
 .right-column {
-  flex: 2;
   background-color: white; /* fondo */
   padding: 50px;
 }
@@ -477,6 +474,10 @@ th {
   align-items: center;
   justify-content: center;
   margin-right: 15px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 .avatar-initials {
@@ -493,49 +494,46 @@ th {
 .profesor-details p {
   margin: 5px 0 0;
   color: #666;
-  text-decoration-color: #FDF8E4;
-}
- 
-.data-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
 }
 
-.data-label {
-  flex: 1;
-  font-weight: bold;
-  white-space: nowrap;
-  margin-left: 75px;
-}
-
-.data-value {
-  flex: 2;
-  font-weight: bold;
+.profesor-data {
   margin-left: 70px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.profesor-data th {
+  border: none;
+  font-weight: bold;
+  text-align: left;
+  padding: 5px 10px;
+}
+
+.profesor-data td { 
+  border: none;
+  padding: 5px 10px;
 }
 
 .data-value2 {
-  flex: 2;
   color: #8B6E3B;
   background-color: #FDF8E4;
-  padding: 2px 4px; 
+  padding: 2px 4px;
   border-radius: 4px;
-  display: inline-block; /* solo subraya el texto */
+  display: inline-block;
   font-weight: bold;
-  margin-left: 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
 }
 
 .data-value3 {
-  flex: 2;
   color: #164D64;
   background-color: #67CBE9;
   padding: 2px 4px; 
   border-radius: 4px;
   display: inline-block; /* solo subraya el texto */
   font-weight: bold;
-  margin-left: 28px;
 }
 
 .class-info {
@@ -543,7 +541,6 @@ th {
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 15px;
-  height: auto;
 }
 
 .class-info h3 {
@@ -552,44 +549,43 @@ th {
 }
 
 .class-details {
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
   font-size: 14px;
-  gap: 20px;
+  border-collapse: collapse;
 }
 
-.nrc-column, .building-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.class-details th, .class-details td {
+  border: none;
+  padding: 5px;
   text-align: center;
-  flex: 1;
-  margin-bottom: 7px;
+  background-color: transparent;
 }
 
-.nrc-column span, .building-column span, .schedule-column span {
-  display: block;
-  margin-bottom: 7px;
+.class-details th {
+  font-weight: bold;
 }
 
-.schedule-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 7px;
+.class-details td {
+  vertical-align: middle;
+  padding: 10px 5px;
 }
 
-.schedule-column div {
+.horario-container {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  justify-content: center;
+  gap: 10px; /* Espacio entre el horario y los días */
+}
+
+.horario-tiempo {
+  white-space: nowrap; 
 }
 
 .weekdays {
   display: flex;
   gap: 5px;
-  margin-left: 8px;
+  justify-content: center;
+  margin-top: 5px;
 }
 
 .day {
@@ -601,9 +597,6 @@ th {
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  text-align: center;
-  line-height: 2;
-  margin: 0;
 }
 
 .day.active {

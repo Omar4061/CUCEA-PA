@@ -390,95 +390,111 @@ $result = mysqli_query($conexion, $sql);
         <span class="close" onclick="cerrarModalVisualizar()">&times;</span>
        
         <!-- código del contenido del modal -->
-        <div class="contenedor">
-        <div class="left-column">
-            <div class="profesor-header">
-                <div class="profesor-avatar">
-                    <span class="avatar-initials">FQ</span>
-                </div>
-                <div class="profesor-details">
-                    <h2 id="profesor-nombre">Fabiola Quezada Limón</h2>
-                    <p id="profesor-email">fabiolaquezada@academicos.udg.mx</p>
-                </div>
-            </div>
-            <div class="profesor-data">
-                <div class="data-row">
-                    <span class="data-label">Código</span>
-                    <span id="profesor-codigo" class="data-value">123456789</span>
-                </div>
-                <div class="data-row">
-                    <span class="data-label">Categoría</span>
-                    <span id="profesor-categoria" class="data-value">Asignatura B</span>
-                </div>
-                <div class="data-row">
-                    <span class="data-label">Horas asignadas</span>
-                    <span id="profesor-horas" class="data-value2">39/40</span>
-                </div>
-                <div class="data-row">
-                    <span class="data-label">Departamento</span>
-                    <span id="profesor-departamento" class="data-value3">Administración</span>
-                </div>
-            </div>
-        </div>
-        <div class="right-column">
+        <table class="contenedor">
+            <tr>
+                <td class="left-column">
+                    <div class="profesor-header">
+                        <div class="profesor-avatar">
+                            <span class="avatar-initials">FQ</span>
+                        </div>
+                        <div class="profesor-details">
+                            <h2 id="profesor-nombre">Fabiola Quezada Limón</h2>
+                            <p id="profesor-email">fabiolaquezada@academicos.udg.mx</p>
+                        </div>
+                    </div>
+            <table class="profesor-data">
+                <tr>
+                    <th>Código</th>
+                    <td id="profesor-codigo">123456789</td>
+                </tr>
+                <tr>
+                    <th>Categoría</th>
+                    <td id="profesor-categoria">Asignatura B</td>
+                </tr>
+                <tr>
+                    <th>Horas asignadas</th>
+                    <td id=profesor-horas" class="data-value2">39/40</td>
+                </tr>
+                <tr>
+                    <th>Departamento</th>
+                    <td id="profesor-departamento" class="data-value3">Administración</td>
+                </tr>     
+            </table>
+        </td>
+
+        <!-- Desarrollo Emprendedores -->
+         <td class="right-column">
             <div class="class-info">
                 <h3>Desarrollo de emprendedores</h3>
-                <div class="class-details">
-                <div class="nrc-column">
-                    <span>NRC</span><br>
-                    <span>141917</span><br>
-                    <span>151917</span><br>
-                    <span>167143</span><br>
-                    </div>
-                
-                <div class="schedule-column">
-                    <div>
-                    <span>Horario</span>
-                    </div>
-                <div>
-                    <span>07:00 - 8:55</span><br>
-                    <div class="weekdays">
-                        <div class="day active">L</div>
-                        <div class="day">M</div>
-                        <div class="day active">I</div>
-                        <div class="day">J</div>
-                        <div class="day">V</div>
-                        <div class="day">S</div>
-                    </div>
-                </div>
-                <div>
-                    <span>09:00 - 10:55</span>
-                    <div class="weekdays">
-                        <div class="day">L</div>
-                        <div class="day active">M</div>
-                        <div class="day">I</div>
-                        <div class="day active">J</div>
-                        <div class="day">V</div>
-                        <div class="day">S</div>
-                    </div>
-                </div>
-                <div>
-                    <span>13:00 - 14:55</span><br>
-                    <div class="weekdays">
-                        <div class="day">L</div>
-                        <div class="day active">M</div>
-                        <div class="day">I</div>
-                        <div class="day active">J</div>
-                        <div class="day">V</div>
-                        <div class="day">S</div>
-                    </div>
-                </div>
+                <table class="class-details">
+                    <tr>
+                        <th>NRC</th>
+                        <th>Horario</th>
+                        <th>Edificio/Aula</th>
+                    </tr>
+                    <tr>
+                        <td>141917</td>
+                        <!-- <td>
+                            07:00 - 8:55
+                            <div class="weekdays">
+                                <div class="day active">L</div>
+                                <div class="day">M</div>
+                                <div class="day active">I</div>
+                                <div class="day">J</div>
+                                <div class="day">V</div>
+                                <div class="day">S</div>
+                            </div>
+                        </td> -->
+                        <td>
+                            <div class="horario-container">
+                            <span class="horario-tiempo">07:00 - 8:55</span>
+                            <div class="weekdays">
+                            <div class="day active">L</div>
+                            <div class="day">M</div>
+                            <div class="day active">I</div>
+                            <div class="day">J</div>
+                            <div class="day">V</div>
+                            <div class="day">S</div>
+                        </div>
+                        </div>
+                        </td>
+                        <td>F106</td>
+                    </tr>
+                    <tr>
+                        <td>151917</td>
+                        <td>
+                            09:00 - 10:55
+                            <div class="weekdays">
+                                <div class="day">L</div>
+                                <div class="day active">M</div>
+                                <div class="day">I</div>
+                                <div class="day active">J</div>
+                                <div class="day">V</div>
+                                <div class="day">S</div>
+                            </div>
+                        </td>
+                        <td>G302</td>
+                    </tr>
+                    <tr>
+                        <td>167143</td>
+                    <td>
+                    13:00 - 14:55
+                            <div class="weekdays">
+                                <div class="day">L</div>
+                                <div class="day active">M</div>
+                                <div class="day">I</div>
+                                <div class="day active">J</div>
+                                <div class="day">V</div>
+                                <div class="day">S</div>
+                            </div>
+                        </td>
+                        <td>C101</td>
+                    </tr>
+                </table>
             </div>
-            <div class="building-column">
-                <span>Edificio/Aula</span><br>
-                <span>F106</span><br>
-                <span>G302</span><br>
-                <span>C101</span><br>
-            </div>
-            </div>
-            </div>
-        </div>
-    </div>
+        </td>
+    </tr>
+</table>
         
         <!-- fin contenido del modal -->
     </div>
