@@ -4,6 +4,14 @@ include './../../config/db.php';
 $espacio = $_GET['espacio'];
 $modulo = $_GET['modulo'];
 
+// Activar reporte de errores
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Imprimir variables para depuración
+error_log("Espacio: " . $espacio);
+error_log("Módulo: " . $modulo);
+
 $departamentos = [
     'Estudios_Regionales', 'Finanzas', 'Ciencias_Sociales', 'PALE', 'Posgrados',
     'Economía', 'Recursos_Humanos', 'Métodos_Cuantitativos', 'Políticas_Públicas',
@@ -28,6 +36,8 @@ foreach ($departamentos as $departamento) {
               WHERE MODULO = '$modulo' AND AULA = '$espacio'
               ORDER BY HORA_INICIAL";
 
+    error_log("Consulta ejecutada: " . $query);
+
     $result = mysqli_query($conexion, $query);
 
     if ($result) {
@@ -45,15 +55,23 @@ foreach ($departamentos as $departamento) {
                 }
             }
         }
+    } else {
+        error_log("Error en la consulta: " . mysqli_error($conexion));
     }
 }
 
-// Ordenar las clases por hora de inicio para cada día
-foreach ($horarios as $dia => $clases) {
-    usort($horarios[$dia], function($a, $b) {
-        return strcmp($a['hora_inicial'], $b['hora_inicial']);
-    });
-}
+// Asegurarse de que no haya salida antes del JSON
+ob_clean();
 
+// Establecer las cabeceras correctas
+header('Content-Type: application/json');
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Imprimir el JSON y terminar la ejecución
+// Al final del archivo, justo antes de enviar el JSON
+header('Content-Type: application/json');
 echo json_encode($horarios);
+exit;
 ?>
