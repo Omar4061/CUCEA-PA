@@ -69,7 +69,7 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
 
         for ($row = 2; $row <= $highestRow; $row++) {
             $ciclo = $sheet->getCell('A' . $row)->getCalculatedValue();
-            $ciclo = $ciclo !== null ? safeSubstr($ciclo, 0, 10) : null;            
+            $ciclo = $ciclo !== null ? safeSubstr($ciclo, 0, 10) : null;
             $crn = safeSubstr($sheet->getCell('B' . $row)->getCalculatedValue(), 0, 15) ?? null;
             $materia = safeSubstr($sheet->getCell('C' . $row)->getCalculatedValue(), 0, 80) ?? null;
             $cve_materia = safeSubstr($sheet->getCell('D' . $row)->getCalculatedValue(), 0, 5) ?? null;
@@ -109,9 +109,18 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
             $hora_final = $hora_final !== null ? str_pad(substr($hora_final, 0, 10), 4, '0', STR_PAD_LEFT) : null;
             $modulo = safeSubstr($sheet->getCell('AK' . $row)->getCalculatedValue(), 0, 10) ?? null;
             $aula = $sheet->getCell('AL' . $row)->getCalculatedValue();
-            $aula = $aula !== null ? str_pad(substr($aula, 0, 10), 4, '0', STR_PAD_LEFT) : null;            $observaciones = safeSubstr($sheet->getCell('AM' . $row)->getCalculatedValue(), 0, 150) ?? null;
+            $aula = $aula !== null ? str_pad(substr($aula, 0, 10), 4, '0', STR_PAD_LEFT) : null;
+            $observaciones = safeSubstr($sheet->getCell('AM' . $row)->getCalculatedValue(), 0, 150) ?? null;
             $cupo = safeSubstr($sheet->getCell('AN' . $row)->getCalculatedValue(), 0, 3) ?? null;
             $examen_extraordinario = safeSubstr($sheet->getCell('AO' . $row)->getCalculatedValue(), 0, 2) ?? null;
+
+            // Sumar las horas para cada profesor
+            if ($codigo_profesor && $horas && $categoria !== 'Asignatura A' && $categoria !== 'Asignatura B' && $categoria !== 'Asignatura C') {
+                if (!isset($profesores_horas[$codigo_profesor])) {
+                    $profesores_horas[$codigo_profesor] = 0;
+                }
+                $profesores_horas[$codigo_profesor] += intval($horas);
+            }
 
             if ($fecha_inicial) {
                 $fecha_inicial = DateTime::createFromFormat('d/m/Y', $fecha_inicial);
@@ -173,6 +182,30 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
             }
         }
 
+        // Validar la carga horaria de cada profesor
+        $profesores_excedidos = array();
+        foreach ($profesores_horas as $codigo_profesor => $horas_totales) {
+            $sql_carga_horaria = "SELECT Carga_horaria FROM Coord_Per_Prof WHERE Codigo = ?";
+            $stmt_carga_horaria = $conn->prepare($sql_carga_horaria);
+            $stmt_carga_horaria->bind_param("s", $codigo_profesor);
+            $stmt_carga_horaria->execute();
+            $result_carga_horaria = $stmt_carga_horaria->get_result();
+
+            if ($row_carga_horaria = $result_carga_horaria->fetch_assoc()) {
+                $carga_horaria_permitida = intval($row_carga_horaria['Carga_horaria']);
+                if ($horas_totales > $carga_horaria_permitida) {
+                    $profesores_excedidos[] = $codigo_profesor;
+                }
+            }
+            $stmt_carga_horaria->close();
+        }
+
+        if (!empty($profesores_excedidos)) {
+            $mensaje_advertencia = "Los siguientes profesores exceden su carga horaria permitida: " . implode(", ", $profesores_excedidos);
+            echo json_encode(["success" => false, "message" => $mensaje_advertencia]);
+            exit();
+        }
+
         $sqlInsertPlantillaDep = "INSERT INTO Plantilla_Dep (Nombre_Archivo_Dep, Tamaño_Archivo_Dep, Usuario_ID, Departamento_ID) VALUES (?, ?, ?, ?)";
         $stmtInsertPlantillaDep = $conn->prepare($sqlInsertPlantillaDep);
         $stmtInsertPlantillaDep->bind_param("siii", $fileName, $fileSize, $usuario_id, $departamento_id);
@@ -223,6 +256,8 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
 
         $stmt_departamento->close();
         $stmtInsertPlantillaDep->close();
+
+        echo json_encode(["success" => true, "message" => "Archivo cargado y datos insertados en la base de datos."]);
     } else {
         echo json_encode(["success" => false, "message" => "Usuario no autenticado."]);
     }
