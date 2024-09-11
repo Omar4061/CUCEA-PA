@@ -528,34 +528,35 @@
   display: none;
   position: fixed;
   z-index: 1000;
-  left: 0;
-  top: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  overflow: hidden; /* Evitar scroll externo */
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro */
 }
 
 .modal-content {
   background-color: #fff;
-  margin: 2.5% auto;
+  margin: 2.5% auto; /* Quitar el margen superior */
   padding: 20px;
   border-radius: 5px;
   width: 80%;
-  max-width: 900px;
-  max-height: 1000px;
-  /* display: flex;
-  flex-direction: column; */
+  max-width: 1000px;
+  max-height: 80vh; /* Limitar la altura al 90% del viewport */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Permitir scroll solo dentro del modal */
 }
 
 .sala-modal {
-  /* padding: 3px; */
   margin-top: 30px;
   text-align: center;
   font-size: 12px;
   flex-grow: 1;
-  max-width: 75px;
-  height: 130px;
+  max-width: 90px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -576,8 +577,8 @@
 }
 
 .modal-body {
-    flex-grow: 1;
-    overflow-y: auto;
+  flex-grow: 1;
+  overflow-y: auto; /* Scroll interno */
 }
 
 .close {
@@ -586,6 +587,7 @@
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
+  margin-top: -80px;
 }
 
 .close:hover,
@@ -634,7 +636,7 @@ textarea {
 .tab {
   overflow: hidden;
   background-color: #fff;
-  /* margin-bottom: 10px; */
+  /* margin-top: -0px; */
 }
 
 .tab button {

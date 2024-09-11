@@ -186,9 +186,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 <div id="claseModal" class="modal">
   <div class="modal-content">
-    <span class="close">&times;</span>
     <div class="modal-header">
       <h2 id="modalTitle">Características del espacio</h2>
+          <span class="close">&times;</span>
       <hr style="border: 1px solid #0071b0; width: 100%;">
       <div class="espacio-info">
         <div class="sala-modal <?php echo strtolower(str_replace(' ', '-', $espacio['Etiqueta'])); ?> <?php echo (strpos(strtolower($espacio['Etiqueta']), 'aula') !== false) ? 'aula' : ((strpos(strtolower($espacio['Etiqueta']), 'laboratorio') !== false) ? 'laboratorio' : ''); ?>" data-espacio="<?php echo $espacio['Espacio']; ?>">
@@ -198,30 +198,25 @@ while ($row = mysqli_fetch_assoc($result)) {
           <p><strong>Edificio:</strong> <span id="moduloInfo"></span></p>
           <p><strong>Número:</strong> <span id="espacioInfo"></span></p>
           <p><strong>Tipo:</strong> <span id="tipoInfo"></span></p>
-          <p><strong>Capacidad:</strong> <span id="cupoInfo"></span></p>
+          <p><strong>Cupo:</strong> <span id="cupoInfo"></span></p>
         </div>
         <div class="espacio-columna">
           <p><strong>Equipo:</strong></p>
-          <ul id="equipoList">
-            <li>Computadora</li>
-            <li>Proyector</li>
-            <li>Cortina Proyector</li>
-            <li>Cortinas</li>
-            <li>Doble Pizarrón</li>
-            <li>Pantalla</li>
-            <li>Cámaras</li>
-          </ul>
+          <ul id="equipoList"></ul>
         </div>
         <div class="espacio-columna">
           <p><strong>Observaciones:</strong></p>
+          <div id="observacionesArea"></div>
         </div>
         <div class="espacio-columna">
           <p><strong>Reportes:</strong></p>
+          <div id="reportesArea"></div>
         </div>
       </div>
-      <hr style="border: 1px solid #0071b0; width: 100%;">
+      <h3>Horarios de clases: </h3>
+      <hr style="border: 1px solid #0071b0; width: 100%;   margin-top: -px;">
       <div class="tab">
-        <button class="tablinks active" onclick="openDay(event, 'Lunes')">L</button>
+        <button class="tablinks" onclick="openDay(event, 'Lunes')">L</button>
         <button class="tablinks" onclick="openDay(event, 'Martes')">M</button>
         <button class="tablinks" onclick="openDay(event, 'Miercoles')">I</button>
         <button class="tablinks" onclick="openDay(event, 'Jueves')">J</button>

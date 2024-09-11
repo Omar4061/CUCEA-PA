@@ -28,12 +28,18 @@ $horarios = array(
     'Sabado' => array()
 );
 
+// Obtener información adicional del espacio
+$query_espacio = "SELECT Modulo, Etiqueta FROM Espacios WHERE Modulo = '$modulo' AND Espacio = '$espacio'";
+$result_espacio = mysqli_query($conexion, $query_espacio);
+$info_espacio = mysqli_fetch_assoc($result_espacio);
 
+$horarios['modulo'] = $info_espacio['Modulo'];
+$horarios['tipo'] = $info_espacio['Etiqueta'];
 
 foreach ($departamentos as $departamento) {
     $tabla = "Data_" . str_replace(' ', '_', $departamento);
     
-    $query = "SELECT L, M, I, J, V, S, HORA_INICIAL, HORA_FINAL, CVE_MATERIA, MATERIA, NOMBRE_PROFESOR 
+    $query = "SELECT L, M, I, J, V, S, HORA_INICIAL, HORA_FINAL, CVE_MATERIA, MATERIA, NOMBRE_PROFESOR, CUPO 
               FROM $tabla 
               WHERE MODULO = '$modulo' AND AULA = '$espacio'
               ORDER BY HORA_INICIAL";
@@ -52,8 +58,11 @@ foreach ($departamentos as $departamento) {
                         'hora_final' => $row['HORA_FINAL'],
                         'cve_materia' => $row['CVE_MATERIA'],
                         'materia' => $row['MATERIA'],
-                        'profesor' => $row['NOMBRE_PROFESOR']
+                        'profesor' => $row['NOMBRE_PROFESOR'],
+                        'cupo' => $row['CUPO']
                     );
+                    // Después de obtener la información del espacio
+                    $horarios['cupo'] = $row['CUPO'];
                 }
             }
         }

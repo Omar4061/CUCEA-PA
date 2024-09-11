@@ -1,7 +1,21 @@
 function mostrarModal(espacio, horarios) {
     $('#modalTitle').text('Características del espacio');
+    $('#moduloInfo').text(horarios.modulo);
     $('#espacioInfo').text(espacio);
-    $('#moduloInfo').text(modulo);
+    $('#tipoInfo').text(horarios.tipo);
+    $('#cupoInfo').text(horarios.cupo);    
+
+    var equipoList = $('#equipoList');
+    equipoList.empty();
+    var equipos = ['Computadora', 'Proyector', 'Cortina Proyector', 'Cortinas', 'Doble Pizarrón', 'Pantalla', 'Cámaras'];
+    equipos.forEach(function(equipo) {
+        equipoList.append(`<li><input type="checkbox" id="${equipo}" name="${equipo}"><label for="${equipo}">${equipo}</label></li>`);
+    });
+
+    // Agregar campos de texto para observaciones y reportes
+    $('#observacionesArea').html('<textarea id="observaciones" rows="3" cols="30"></textarea>');
+    $('#reportesArea').html('<textarea id="reportes" rows="3" cols="30"></textarea>');
+
     $('#tabContent').empty(); // Limpiar el contenido anterior
     
     var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
@@ -28,8 +42,8 @@ function mostrarModal(espacio, horarios) {
     
     $('#claseModal').show();
     openDay(null, 'Lunes');  // Mostrar el lunes por defecto
+    $('.tablinks').first().addClass('active');  // Activar el tab de Lunes
 }
-
 function openDay(evt, dayName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
