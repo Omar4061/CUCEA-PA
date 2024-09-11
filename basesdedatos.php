@@ -50,6 +50,11 @@ $result = mysqli_query($conexion, $sql);
                 <div class="icono-buscador" id="icono-borrar-seleccionados" onclick="eliminarRegistrosSeleccionados()">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </div>
+                <!-- Icono agregado por Cass -->
+                 <div class="icono-buscador" id="icono-visualizar" onclick="visualizarInformacionProfesores()">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                 </div>
+                <!-- -->
                 <div class="icono-buscador" id="icono-descargar" onclick="mostrarPopupColumnas()">
                     <i class="fa fa-download" aria-hidden="true"></i>
                 </div>
@@ -378,11 +383,129 @@ $result = mysqli_query($conexion, $sql);
     </div>
 </div>
 
+<!-- Modal para visualizar información detallada del profesor by Cass -->
+            <!-- Referencias tomadas de los modales anteriores -->
+<div id="modal-visualizar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalVisualizar()">&times;</span>
+       
+        <!-- código del contenido del modal -->
+        <table class="contenedor">
+            <tr>
+                <td class="left-column">
+                    <div class="profesor-header">
+                        <div class="profesor-avatar">
+                            <span class="avatar-initials">FQ</span>
+                        </div>
+                        <div class="profesor-details">
+                            <h2 id="profesor-nombre">Fabiola Quezada Limón</h2>
+                            <p id="profesor-email">fabiolaquezada@academicos.udg.mx</p>
+                        </div>
+                    </div>
+            <table class="profesor-data">
+                <tr>
+                    <th>Código</th>
+                    <td id="profesor-codigo">123456789</td>
+                </tr>
+                <tr>
+                    <th>Categoría</th>
+                    <td id="profesor-categoria">Asignatura B</td>
+                </tr>
+                <tr>
+                    <th>Horas asignadas</th>
+                    <td id=profesor-horas" class="data-value2">39/40</td>
+                </tr>
+                <tr>
+                    <th>Departamento</th>
+                    <td id="profesor-departamento" class="data-value3">Administración</td>
+                </tr>     
+            </table>
+        </td>
+
+        <!-- Desarrollo Emprendedores -->
+         <td class="right-column">
+            <div class="class-info">
+                <h3>Desarrollo de emprendedores</h3>
+                <table class="class-details">
+                    <tr>
+                        <th>NRC</th>
+                        <th>Horario</th>
+                        <th>Edificio/Aula</th>
+                    </tr>
+                    <tr>
+                        <td>141917</td>
+                        <!-- <td>
+                            07:00 - 8:55
+                            <div class="weekdays">
+                                <div class="day active">L</div>
+                                <div class="day">M</div>
+                                <div class="day active">I</div>
+                                <div class="day">J</div>
+                                <div class="day">V</div>
+                                <div class="day">S</div>
+                            </div>
+                        </td> -->
+                        <td>
+                            <div class="horario-container">
+                            <span class="horario-tiempo">07:00 - 8:55</span>
+                            <div class="weekdays">
+                            <div class="day active">L</div>
+                            <div class="day">M</div>
+                            <div class="day active">I</div>
+                            <div class="day">J</div>
+                            <div class="day">V</div>
+                            <div class="day">S</div>
+                        </div>
+                        </div>
+                        </td>
+                        <td>F106</td>
+                    </tr>
+                    <tr>
+                        <td>151917</td>
+                        <td>
+                            09:00 - 10:55
+                            <div class="weekdays">
+                                <div class="day">L</div>
+                                <div class="day active">M</div>
+                                <div class="day">I</div>
+                                <div class="day active">J</div>
+                                <div class="day">V</div>
+                                <div class="day">S</div>
+                            </div>
+                        </td>
+                        <td>G302</td>
+                    </tr>
+                    <tr>
+                        <td>167143</td>
+                    <td>
+                    13:00 - 14:55
+                            <div class="weekdays">
+                                <div class="day">L</div>
+                                <div class="day active">M</div>
+                                <div class="day">I</div>
+                                <div class="day active">J</div>
+                                <div class="day">V</div>
+                                <div class="day">S</div>
+                            </div>
+                        </td>
+                        <td>C101</td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+        
+        <!-- fin contenido del modal -->
+    </div>
+</div>
+
 <script src="./JS/basesdedatos/tabla-editable.js"></script>
 <script src="./JS/basesdedatos/barra-busqueda.js"></script>
 <script src="./JS/basesdedatos/eliminar-registro.js"></script>
 <script src="./JS/basesdedatos/editar-registros.js"></script>
 <script src="./JS/basesdedatos/añadir-registro.js"></script>
 <script src="./JS/basesdedatos/descargar-data-excel.js"></script>
+<script src="./JS/basesdedatos/visualizar-profesores.js"></script> <!-- Llama el js de visualizar by Cass -->
 
 <?php include("./template/footer.php"); ?>
