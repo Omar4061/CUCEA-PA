@@ -548,6 +548,29 @@
   flex-direction: column; */
 }
 
+.sala-modal {
+  /* padding: 3px; */
+  margin-top: 30px;
+  text-align: center;
+  font-size: 12px;
+  flex-grow: 1;
+  max-width: 75px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  border-radius: 7px 7px 0px 0px;
+}
+
+.sala-modal img {
+  width: 35px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  height: 30px;
+  margin-bottom: 60px;
+  justify-content: center;
+}
+
 .modal-header {
     flex-shrink: 0;
 }
@@ -571,6 +594,42 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Estilos superiores del  modal */
+
+.espacio-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.espacio-columna {
+  flex: 1;
+  padding: 10px;
+}
+
+.espacio-icon {
+  width: 50px;
+  height: auto;
+}
+
+#equipoList {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#equipoList li {
+  margin-bottom: 5px;
+}
+
+textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Estilos inferiores del modal */
 
 .tab {
   overflow: hidden;
@@ -597,7 +656,7 @@
 .tab button.active {
   background-color: #0071b0;
   color: white;
-  font-weight: bold
+  font-weight: bold;
 }
 
 .tabcontent {
@@ -624,35 +683,4 @@
 
 .horario-table tr:nth-child(even) {
   background-color: #f9f9f9;
-}
-
-/* nomeacuerdo */
-
-.clase-info {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.clase-info p {
-  margin: 5px 0;
-}
-
-.clase-lista {
-    list-style-type: none;
-    padding: 0;
-}
-
-.clase-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.clase-item p {
-    margin: 5px 0;
 }

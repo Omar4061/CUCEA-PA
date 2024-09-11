@@ -28,6 +28,8 @@ $horarios = array(
     'Sabado' => array()
 );
 
+
+
 foreach ($departamentos as $departamento) {
     $tabla = "Data_" . str_replace(' ', '_', $departamento);
     

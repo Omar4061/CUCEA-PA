@@ -188,8 +188,38 @@ while ($row = mysqli_fetch_assoc($result)) {
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="modal-header">
-      <h2 id="modalTitle">Horario de clases</h2>
-      <p id="espacioInfo">Espacio: </p>
+      <h2 id="modalTitle">Características del espacio</h2>
+      <hr style="border: 1px solid #0071b0; width: 100%;">
+      <div class="espacio-info">
+        <div class="sala-modal <?php echo strtolower(str_replace(' ', '-', $espacio['Etiqueta'])); ?> <?php echo (strpos(strtolower($espacio['Etiqueta']), 'aula') !== false) ? 'aula' : ((strpos(strtolower($espacio['Etiqueta']), 'laboratorio') !== false) ? 'laboratorio' : ''); ?>" data-espacio="<?php echo $espacio['Espacio']; ?>">
+            <img src="./Img/icons/iconos-espacios/icono-<?php echo strtolower(str_replace(' ', '-', $espacio['Etiqueta'])); ?>.png" alt="<?php echo $espacio['Etiqueta']; ?>">
+        </div>
+        <div class="espacio-columna">
+          <p><strong>Edificio:</strong> <span id="moduloInfo"></span></p>
+          <p><strong>Número:</strong> <span id="espacioInfo"></span></p>
+          <p><strong>Tipo:</strong> <span id="tipoInfo"></span></p>
+          <p><strong>Capacidad:</strong> <span id="cupoInfo"></span></p>
+        </div>
+        <div class="espacio-columna">
+          <p><strong>Equipo:</strong></p>
+          <ul id="equipoList">
+            <li>Computadora</li>
+            <li>Proyector</li>
+            <li>Cortina Proyector</li>
+            <li>Cortinas</li>
+            <li>Doble Pizarrón</li>
+            <li>Pantalla</li>
+            <li>Cámaras</li>
+          </ul>
+        </div>
+        <div class="espacio-columna">
+          <p><strong>Observaciones:</strong></p>
+        </div>
+        <div class="espacio-columna">
+          <p><strong>Reportes:</strong></p>
+        </div>
+      </div>
+      <hr style="border: 1px solid #0071b0; width: 100%;">
       <div class="tab">
         <button class="tablinks active" onclick="openDay(event, 'Lunes')">L</button>
         <button class="tablinks" onclick="openDay(event, 'Martes')">M</button>

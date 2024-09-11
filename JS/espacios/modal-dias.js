@@ -1,6 +1,7 @@
 function mostrarModal(espacio, horarios) {
     $('#modalTitle').text('Características del espacio');
-    $('#espacioInfo').text('Espacio: ' + espacio);
+    $('#espacioInfo').text(espacio);
+    $('#moduloInfo').text(modulo);
     $('#tabContent').empty(); // Limpiar el contenido anterior
     
     var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
