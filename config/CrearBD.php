@@ -96,8 +96,7 @@ $usuarios = [
     [2105678901, 'Sofia', 'Gonzalez', 'sofia.gonzalez@cucea.udg', '123', 'Femenino', 3, '#FF0000'],
     [2102345678, 'Luis', 'Garcia', 'luis.garcia@cucea.udg', '123', 'Masculino', 3, '#FF0000'],
     [2108901234, 'Daniel', 'Sanchez', 'daniel.sanchez@cucea.udg', '123', 'Masculino', 3, '#FF0000'],
-    [2109012345, 'Monica', 'Ramirez', 'monica.ramirez@cucea.udg', '123', 'Femenino', 3, '#FF0000'],
-    [2168093650, 'Santiago', 'Romero', 'edson.casas8093@alumnos.udg.mx', '123', 'Masculino', 1, '#FF0000']
+    [2109012345, 'Monica', 'Ramirez', 'monica.ramirez@cucea.udg', '123', 'Femenino', 3, '#FF0000']
 ];
 
 echo "Array de usuarios definido correctamente<br>";
