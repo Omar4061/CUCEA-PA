@@ -7,17 +7,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "pa";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conexion = mysqli_connect("localhost", "root", "root", "pa");
 
 try {
     // Verificar la conexión
-    if ($conn->connect_error) {
-        throw new Exception("Error de conexión: " . $conn->connect_error);
+    if ($conexion->connect_error) {
+        throw new Exception("Error de conexión: " . $conexion->connect_error);
     }
 
     // Obtener los datos del formulario
@@ -48,9 +43,9 @@ try {
 
     // Verificar si el código ya existe
     $check_sql = "SELECT Codigo FROM Usuarios WHERE Codigo = ?";
-    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt = $conexion->prepare($check_sql);
     if ($check_stmt === false) {
-        throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+        throw new Exception("Error en la preparación de la consulta: " . $conexion->error);
     }
     $check_stmt->bind_param("i", $codigo);
     if (!$check_stmt->execute()) {
@@ -66,9 +61,9 @@ try {
 
     // Insertar el usuario en la tabla Usuarios
     $sql = "INSERT INTO Usuarios (Codigo, Nombre, Apellido, Correo, Pass, Genero, Rol_ID) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conexion->prepare($sql);
     if ($stmt === false) {
-        throw new Exception("Error en la preparación de la consulta de inserción: " . $conn->error);
+        throw new Exception("Error en la preparación de la consulta de inserción: " . $conexion->error);
     }
     $stmt->bind_param("issssss", $codigo, $nombre, $apellido, $correo, $hashedPassword, $genero, $rol);
 
@@ -78,9 +73,9 @@ try {
 
     // Verificar si el rol requiere un departamento
     $sql_check_rol = "SELECT Nombre_Rol FROM Roles WHERE Rol_ID = ?";
-    $stmt_check_rol = $conn->prepare($sql_check_rol);
+    $stmt_check_rol = $conexion->prepare($sql_check_rol);
     if ($stmt_check_rol === false) {
-        throw new Exception("Error en la preparación de la consulta de roles: " . $conn->error);
+        throw new Exception("Error en la preparación de la consulta de roles: " . $conexion->error);
     }
     $stmt_check_rol->bind_param("i", $rol);
     if (!$stmt_check_rol->execute()) {
@@ -92,9 +87,9 @@ try {
     if ($row_rol['Nombre_Rol'] != "Coordinación de Personal" && $row_rol['Nombre_Rol'] != "Secretaría Administrativa") {
         // Insertar la relación usuario-departamento solo si no es un rol especial
         $sql_departamento = "INSERT INTO Usuarios_Departamentos (Usuario_ID, Departamento_ID) VALUES (?, ?)";
-        $stmt_departamento = $conn->prepare($sql_departamento);
+        $stmt_departamento = $conexion->prepare($sql_departamento);
         if ($stmt_departamento === false) {
-            throw new Exception("Error en la preparación de la consulta de departamento: " . $conn->error);
+            throw new Exception("Error en la preparación de la consulta de departamento: " . $conexion->error);
         }
         $stmt_departamento->bind_param("ii", $codigo, $departamento);
         if (!$stmt_departamento->execute()) {
@@ -113,7 +108,7 @@ try {
 
 if (isset($stmt)) $stmt->close();
 if (isset($stmt_check_rol)) $stmt_check_rol->close();
-$conn->close();
+$conexion->close();
 
 
 /*
@@ -125,13 +120,13 @@ $username = "root";
 $password = "root";
 $dbname = "pa";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conexion = new mysqli($servername, $username, $password, $dbname);
 
 try {
 
     // Verificar la conexión
-    if ($conn->connect_error) {
-        die(json_encode(["success" => false, "message" => "Error de conexión: " . $conn->connect_error]));
+    if ($conexion->connect_error) {
+        die(json_encode(["success" => false, "message" => "Error de conexión: " . $conexion->connect_error]));
     }
 
     // Obtener los datos del formulario
@@ -151,7 +146,7 @@ try {
 
     // Verificar si el código ya existe
     $check_sql = "SELECT Codigo FROM Usuarios WHERE Codigo = ?";
-    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt = $conexion->prepare($check_sql);
     $check_stmt->bind_param("i", $codigo);
     $check_stmt->execute();
     $check_result = $check_stmt->get_result();
@@ -164,13 +159,13 @@ try {
 
     // Insertar el usuario en la tabla Usuarios
     $sql = "INSERT INTO Usuarios (Codigo, Nombre, Apellido, Correo, Pass, Genero, Rol_ID) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conexion->prepare($sql);
     $stmt->bind_param("issssss", $codigo, $nombre, $apellido, $correo, $hashedPassword, $genero, $rol);
 
     if ($stmt->execute()) {
         // Verificar si el rol requiere un departamento
         $sql_check_rol = "SELECT Nombre_Rol FROM Roles WHERE Rol_ID = ?";
-        $stmt_check_rol = $conn->prepare($sql_check_rol);
+        $stmt_check_rol = $conexion->prepare($sql_check_rol);
         $stmt_check_rol->bind_param("i", $rol);
         $stmt_check_rol->execute();
         $result_rol = $stmt_check_rol->get_result();
@@ -179,7 +174,7 @@ try {
         if ($row_rol['Nombre_Rol'] != "Coordinación de Personal" && $row_rol['Nombre_Rol'] != "Secretaría Administrativa") {
             // Insertar la relación usuario-departamento solo si no es un rol especial
             $sql_departamento = "INSERT INTO Usuarios_Departamentos (Usuario_ID, Departamento_ID) VALUES (?, ?)";
-            $stmt_departamento = $conn->prepare($sql_departamento);
+            $stmt_departamento = $conexion->prepare($sql_departamento);
             $stmt_departamento->bind_param("ii", $codigo, $departamento);
             if (!$stmt_departamento->execute()) {
                 echo json_encode(["success" => false, "message" => "Error al agregar la relación usuario-departamento: " . $stmt_departamento->error]);
@@ -198,6 +193,6 @@ try {
 }
 
 $stmt->close();
-$conn->close();
+$conexion->close();
 
 */
