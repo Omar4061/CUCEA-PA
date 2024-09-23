@@ -115,7 +115,7 @@ foreach ($usuarios as $index => $usuario) {
     $nombre = $usuario[1]; // Nombre
     $apellido = $usuario[2]; // Apellido
     $correo = $usuario[3]; // Correo
-    $pass = $pass = hashPassword($usuario[4]); // Pass hasheada
+    $pass = hashPassword($usuario[4]); // Pass hasheada
     $genero = $usuario[5]; // Genero
     $rol_id = $usuario[6]; // Rol_ID
     $iconoColor = $usuario[7];  // IconoColor
