@@ -20,13 +20,12 @@ $result = mysqli_query($conexion, $sql);
 <title>Data - <?php echo $departamento_nombre; ?></title>
 <link rel="stylesheet" href="./CSS/basesdedatos.css">
 
-<!-- CSS de DataTables
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css"> -->
-
-<!-- CSS de DataTables y de Botones -->
-<link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.css">
+<!-- CSS de DataTables, buttons y colReorder -->
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.4/css/colReorder.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css">
+
 
 <div class="cuadro-principal">
     <div class="encabezado">
@@ -390,12 +389,16 @@ $result = mysqli_query($conexion, $sql);
     </div>
 </div>
 
-<!-- Scripts de DataTables y Botones -->
+<!-- Scripts de DataTables y extensiones -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.1.6/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/4.0.1/js/fixedHeader.dataTables.js"></script>
+<script src="https://cdn.datatables.net/colreorder/2.0.4/js/dataTables.colReorder.js"></script>
+<script src="https://cdn.datatables.net/colreorder/2.0.4/js/colReorder.dataTables.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.dataTables.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.min.js"></script>
 
 
 <script src="./JS/basesdedatos/tabla-editable.js"></script>
