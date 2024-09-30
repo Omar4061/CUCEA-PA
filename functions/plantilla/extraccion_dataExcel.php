@@ -3,6 +3,7 @@ session_start();
 require './../../vendor/autoload.php';
 include './../notificaciones-correos/email_functions.php';
 ob_start();
+date_default_timezone_set('America/Mexico_City');
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
