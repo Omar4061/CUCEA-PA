@@ -54,7 +54,7 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
             Codigo, Paterno, Materno, Nombres, Nombre_completo, Sexo, Departamento,
             Categoria_actual, Categoria_actual_dos, Horas_frente_grupo, Division, Tipo_plaza, Cat_act,
             Carga_horaria, Horas_definitivas, Horario, Turno, Investigacion_nombramiento_cambio_funcion,
-            SNI, SIN_desde, Cambio_dedicacion, Inicio, Fin, `2024A`, Telefono_particular, Telefono_oficina,
+            SNI, SNI_desde, Cambio_dedicacion, Inicio, Fin, `2024A`, Telefono_particular, Telefono_oficina,
             Domicilio, Colonia, CP, Ciudad, Estado, No_imss, CURP, RFC, Lugar_nacimiento, Estado_civil,
             Tipo_sangre, Fecha_nacimiento, Edad, Nacionalidad, Correo, Correos_oficiales, Ultimo_grado,
             Programa, Nivel, Institucion, Estado_pais, Año, Gdo_exp, Otro_grado, Otro_programa,
@@ -93,7 +93,7 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
             $turno = safeSubstr($sheet->getCell('Q' . $row)->getCalculatedValue(), 0, 15);
             $investigacion_nombramiento_cambio_funcion = safeSubstr($sheet->getCell('R' . $row)->getCalculatedValue(), 0, 30);
             $sni = safeSubstr($sheet->getCell('S' . $row)->getCalculatedValue(), 0, 15);
-            $sin_desde = convertExcelDate($sheet->getCell('T' . $row)->getCalculatedValue());
+            $sni_desde = convertExcelDate($sheet->getCell('T' . $row)->getCalculatedValue());
             $cambio_dedicacion = safeSubstr($sheet->getCell('U' . $row)->getCalculatedValue(), 0, 30);
             $inicio = convertExcelDate($sheet->getCell('V' . $row)->getCalculatedValue());
             $fin = convertExcelDate($sheet->getCell('W' . $row)->getCalculatedValue());
@@ -163,7 +163,7 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
                 $turno,
                 $investigacion_nombramiento_cambio_funcion,
                 $sni,
-                $sin_desde,
+                $sni_desde,
                 $cambio_dedicacion,
                 $inicio,
                 $fin,
@@ -218,87 +218,72 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
             }
         }
 
-        $sqlInsertPlantillaDep = "INSERT INTO Plantilla_Dep (Nombre_Archivo_Dep, Tamaño_Archivo_Dep, Usuario_ID) VALUES (?, ?, ?)";
-        $stmtInsertPlantillaDep = $conn->prepare($sqlInsertPlantillaDep);
-        $stmtInsertPlantillaDep->bind_param("sii", $fileName, $fileSize, $usuario_id);
-
-        if ($stmtInsertPlantillaDep->execute()) {
-            // Obtener el nombre del departamento
-            $sql_departamento = "SELECT Departamentos FROM Departamentos WHERE Departamento_ID = (SELECT Departamento_ID FROM Usuarios WHERE Codigo = ?)";
-            $stmt_departamento = $conn->prepare($sql_departamento);
+        if ($stmt->execute()) {
+            // Insertar en Plantilla_CoordP
+            $sqlInsertPlantillaCoordP = "INSERT INTO Plantilla_CoordP (Nombre_Archivo_CoordP, Tamaño_Archivo_CoordP, Usuario_ID) VALUES (?, ?, ?)";
+            $stmtInsertPlantillaCoordP = $conn->prepare($sqlInsertPlantillaCoordP);
             
-            if ($stmt_departamento) {
-                $stmt_departamento->bind_param("s", $usuario_id);
-                $stmt_departamento->execute();
-                $result_departamento = $stmt_departamento->get_result();
-                
-                if ($result_departamento->num_rows > 0) {
-                    $departamento = $result_departamento->fetch_assoc();
+            $stmtInsertPlantillaCoordP->bind_param("sis", $fileName, $fileSize, $usuario_id);
         
-                    // Obtener correos de los usuarios de secretaría administrativa
-                    $sql_secretaria = "SELECT Correo FROM Usuarios WHERE Rol_ID = 2";
-                    $result_secretaria = $conn->query($sql_secretaria);
+            if ($stmtInsertPlantillaCoordP->execute()) {
+                // Obtener correos de los usuarios de secretaría administrativa
+                $sql_secretaria = "SELECT Correo FROM Usuarios WHERE Rol_ID = 2";
+                $result_secretaria = $conn->query($sql_secretaria);
         
-                    $envio_exitoso = true;
+                $envio_exitoso = true;
         
-                    while ($secretaria = $result_secretaria->fetch_assoc()) {
-                        $destinatario = $secretaria['Correo'];
-                        $asunto = "Nuevos datos de Coordinación de Personal subidos por Jefe de Departamento";
-                        $cuerpo = "
-                        <html>
-        
-                        <head>
-                            <style>
-                                body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
-                                .container { width: 80%; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-                                .header { text-align: center; padding-bottom: 20px; }
-                                .header img { width: 300px; }
-                                .content { padding: 20px; }
-                                h2 { color: #2c3e50; }
-                                p { line-height: 1.5; color: #333; }
-                                .footer { text-align: center; padding-top: 20px; color: #999; font-size: 8px; }
-                            </style>
-                        </head>
-                        <body>
-                            <div class='container'>
-                                <div class='header'>
-                                    <img src='https://i.imgur.com/gi5dvbb.png' alt='Logo PA'>
-                                </div>
-                                <div class='content'>
-                                    <h2>Nuevos datos de Coordinación de Personal subidos</h2>
-                                    <p>El Jefe del Departamento de {$departamento['Departamentos']} ha subido nuevos datos de Coordinación de Personal.</p>
-                                    <p>Nombre del archivo: {$fileName}</p>
-                                    <p>Fecha de subida: " . date('d/m/y H:i') . "</p>
-                                    <p>Por favor, ingrese al sistema para más detalles.</p>
-                                </div>
-                                <div class='footer'>
-                                    <p>Centro para la Sociedad Digital</p>
-                                </div>
+                while ($secretaria = $result_secretaria->fetch_assoc()) {
+                    $destinatario = $secretaria['Correo'];
+                    $asunto = "Nuevos datos de Coordinación de Personal subidos";
+                    $cuerpo = "
+                    <html>
+                    <head>
+                        <style>
+                            body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+                            .container { width: 80%; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+                            .header { text-align: center; padding-bottom: 20px; }
+                            .header img { width: 300px; }
+                            .content { padding: 20px; }
+                            h2 { color: #2c3e50; }
+                            p { line-height: 1.5; color: #333; }
+                            .footer { text-align: center; padding-top: 20px; color: #999; font-size: 8px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class='container'>
+                            <div class='header'>
+                                <img src='https://i.imgur.com/gi5dvbb.png' alt='Logo PA'>
                             </div>
-                        </body>
-                        </html>
-                        ";
+                            <div class='content'>
+                                <h2>Nuevos datos de Coordinación de Personal subidos</h2>
+                                <p>Se han subido nuevos datos de Coordinación de Personal.</p>
+                                <p>Nombre del archivo: {$fileName}</p>
+                                <p>Fecha de subida: " . date('d/m/y H:i') . "</p>
+                                <p>Por favor, ingrese al sistema para más detalles.</p>
+                            </div>
+                            <div class='footer'>
+                                <p>Centro para la Sociedad Digital</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    ";
         
-                        if (!enviarCorreo($destinatario, $asunto, $cuerpo)) {
-                            $envio_exitoso = false;
-                        }
+                    if (!enviarCorreo($destinatario, $asunto, $cuerpo)) {
+                        $envio_exitoso = false;
                     }
-        
-                    if ($envio_exitoso) {
-                        echo json_encode(["success" => true, "message" => "Archivo cargado y datos insertados en la base de datos."]);
-                    } else {
-                        echo json_encode(["success" => true, "message" => "Archivo cargado y datos insertados en la base de datos, pero hubo problemas al enviar algunos correos."]);
-                    }
-                } else {
-                    echo json_encode(["success" => false, "message" => "No se encontró el departamento del usuario."]);
                 }
-            
-                $stmt_departamento->close();
+        
+                if ($envio_exitoso) {
+                    echo json_encode(["success" => true, "message" => "Archivo cargado y datos insertados en la base de datos."]);
+                } else {
+                    echo json_encode(["success" => true, "message" => "Archivo cargado y datos insertados en la base de datos, pero hubo problemas al enviar algunos correos."]);
+                }
             } else {
-                echo json_encode(["success" => false, "message" => "Error al preparar la consulta del departamento: " . $conn->error]);
+                echo json_encode(["success" => false, "message" => "Error al insertar en Plantilla_CoordP: " . $stmtInsertPlantillaCoordP->error]);
             }
         } else {
-            echo json_encode(["success" => false, "message" => "Error al insertar en Plantilla_Dep: " . $stmtInsertPlantillaDep->error]);
+            echo json_encode(["success" => false, "message" => "Error al insertar datos en Coord_Per_Prof: " . $stmt->error]);
         }
     }
 }
