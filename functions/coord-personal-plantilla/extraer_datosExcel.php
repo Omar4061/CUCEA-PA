@@ -1,7 +1,8 @@
 <?php
 // extraerdatosexcel
 session_start();
-ini_set('memory_limit', '256M');
+ini_set('memory_limit', '512M');
+set_time_limit(200); 
 require './../../vendor/autoload.php';
 include './../notificaciones-correos/email_functions.php';
 ob_start();
@@ -76,61 +77,61 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
 
         for ($row = 2; $row <= $highestRow; $row++) {
             $codigo = safeSubstr($sheet->getCell('A' . $row)->getCalculatedValue(), 0, 12);
-            $paterno = safeSubstr($sheet->getCell('B' . $row)->getCalculatedValue(), 0, 35);
-            $materno = safeSubstr($sheet->getCell('C' . $row)->getCalculatedValue(), 0, 35);
-            $nombres = safeSubstr($sheet->getCell('D' . $row)->getCalculatedValue(), 0, 60);
-            $nombre_completo = safeSubstr($sheet->getCell('E' . $row)->getCalculatedValue(), 0, 60);
-            $sexo = safeSubstr($sheet->getCell('F' . $row)->getCalculatedValue(), 0, 10);
-            $departamento = safeSubstr($sheet->getCell('G' . $row)->getCalculatedValue(), 0, 60);
+            $paterno = safeSubstr($sheet->getCell('B' . $row)->getCalculatedValue(), 0, 50);
+            $materno = safeSubstr($sheet->getCell('C' . $row)->getCalculatedValue(), 0, 50);
+            $nombres = safeSubstr($sheet->getCell('D' . $row)->getCalculatedValue(), 0, 70);
+            $nombre_completo = safeSubstr($sheet->getCell('E' . $row)->getCalculatedValue(), 0, 80);
+            $sexo = safeSubstr($sheet->getCell('F' . $row)->getCalculatedValue(), 0, 5);
+            $departamento = safeSubstr($sheet->getCell('G' . $row)->getCalculatedValue(), 0, 50);
             $categoria_actual = safeSubstr($sheet->getCell('H' . $row)->getCalculatedValue(), 0, 60);
-            $categoria_actual_dos = safeSubstr($sheet->getCell('I' . $row)->getCalculatedValue(), 0, 60);
+            $categoria_actual_dos = safeSubstr($sheet->getCell('I' . $row)->getCalculatedValue(), 0, 20);
             $horas_frente_grupo = intval($sheet->getCell('J' . $row)->getCalculatedValue());
-            $division = safeSubstr($sheet->getCell('K' . $row)->getCalculatedValue(), 0, 60);
-            $tipo_plaza = safeSubstr($sheet->getCell('L' . $row)->getCalculatedValue(), 0, 60);
-            $cat_act = safeSubstr($sheet->getCell('M' . $row)->getCalculatedValue(), 0, 60);
-            $carga_horaria = safeSubstr($sheet->getCell('N' . $row)->getCalculatedValue(), 0, 60);
+            $division = safeSubstr($sheet->getCell('K' . $row)->getCalculatedValue(), 0, 70);
+            $tipo_plaza = safeSubstr($sheet->getCell('L' . $row)->getCalculatedValue(), 0, 70);
+            $cat_act = safeSubstr($sheet->getCell('M' . $row)->getCalculatedValue(), 0, 70);
+            $carga_horaria = safeSubstr($sheet->getCell('N' . $row)->getCalculatedValue(), 0, 10);
             $horas_definitivas = intval($sheet->getCell('O' . $row)->getCalculatedValue());
             $horario = safeSubstr($sheet->getCell('P' . $row)->getCalculatedValue(), 0, 60);
-            $turno = safeSubstr($sheet->getCell('Q' . $row)->getCalculatedValue(), 0, 15);
+            $turno = safeSubstr($sheet->getCell('Q' . $row)->getCalculatedValue(), 0, 5);
             $investigacion_nombramiento_cambio_funcion = safeSubstr($sheet->getCell('R' . $row)->getCalculatedValue(), 0, 30);
-            $sni = safeSubstr($sheet->getCell('S' . $row)->getCalculatedValue(), 0, 15);
+            $sni = safeSubstr($sheet->getCell('S' . $row)->getCalculatedValue(), 0, 50);
             $sni_desde = convertExcelDate($sheet->getCell('T' . $row)->getCalculatedValue());
-            $cambio_dedicacion = safeSubstr($sheet->getCell('U' . $row)->getCalculatedValue(), 0, 30);
+            $cambio_dedicacion = safeSubstr($sheet->getCell('U' . $row)->getCalculatedValue(), 0, 40);
             $inicio = convertExcelDate($sheet->getCell('V' . $row)->getCalculatedValue());
             $fin = convertExcelDate($sheet->getCell('W' . $row)->getCalculatedValue());
-            $a_2024 = safeSubstr($sheet->getCell('X' . $row)->getCalculatedValue(), 0, 15);
-            $telefono_particular = intval($sheet->getCell('Y' . $row)->getCalculatedValue());
-            $telefono_oficina = intval($sheet->getCell('Z' . $row)->getCalculatedValue());
-            $domicilio = safeSubstr($sheet->getCell('AA' . $row)->getCalculatedValue(), 0, 60);
+            $a_2024 = safeSubstr($sheet->getCell('X' . $row)->getCalculatedValue(), 0, 50);
+            $telefono_particular = safeSubstr($sheet->getCell('Y' . $row)->getCalculatedValue(), 0, 30);
+            $telefono_oficina = safeSubstr($sheet->getCell('Z' . $row)->getCalculatedValue(), 0, 30);
+            $domicilio = safeSubstr($sheet->getCell('AA' . $row)->getCalculatedValue(), 0, 70);
             $colonia = safeSubstr($sheet->getCell('AB' . $row)->getCalculatedValue(), 0, 60);
             $cp = intval($sheet->getCell('AC' . $row)->getCalculatedValue());
             $ciudad = safeSubstr($sheet->getCell('AD' . $row)->getCalculatedValue(), 0, 30);
             $estado = safeSubstr($sheet->getCell('AE' . $row)->getCalculatedValue(), 0, 30);
             $no_imss = intval($sheet->getCell('AF' . $row)->getCalculatedValue());
-            $curp = safeSubstr($sheet->getCell('AG' . $row)->getCalculatedValue(), 0, 30);
-            $rfc = safeSubstr($sheet->getCell('AH' . $row)->getCalculatedValue(), 0, 30);
+            $curp = safeSubstr($sheet->getCell('AG' . $row)->getCalculatedValue(), 0, 25);
+            $rfc = safeSubstr($sheet->getCell('AH' . $row)->getCalculatedValue(), 0, 15);
             $lugar_nacimiento = safeSubstr($sheet->getCell('AI' . $row)->getCalculatedValue(), 0, 50);
-            $estado_civil = safeSubstr($sheet->getCell('AJ' . $row)->getCalculatedValue(), 0, 15);
+            $estado_civil = safeSubstr($sheet->getCell('AJ' . $row)->getCalculatedValue(), 0, 5);
             $tipo_sangre = safeSubstr($sheet->getCell('AK' . $row)->getCalculatedValue(), 0, 5);
             $fecha_nacimiento = safeSubstr($sheet->getCell('AL' . $row)->getCalculatedValue(), 0, 15);
             $edad = intval($sheet->getCell('AM' . $row)->getCalculatedValue());
-            $nacionalidad = safeSubstr($sheet->getCell('AN' . $row)->getCalculatedValue(), 0, 20);
+            $nacionalidad = safeSubstr($sheet->getCell('AN' . $row)->getCalculatedValue(), 0, 40);
             $correo = safeSubstr($sheet->getCell('AO' . $row)->getCalculatedValue(), 0, 60);
             $correos_oficiales = safeSubstr($sheet->getCell('AP' . $row)->getCalculatedValue(), 0, 60);
             $ultimo_grado = safeSubstr($sheet->getCell('AQ' . $row)->getCalculatedValue(), 0, 5);
             $programa = safeSubstr($sheet->getCell('AR' . $row)->getCalculatedValue(), 0, 70);
-            $nivel = safeSubstr($sheet->getCell('AS' . $row)->getCalculatedValue(), 0, 10);
-            $institucion = safeSubstr($sheet->getCell('AT' . $row)->getCalculatedValue(), 0, 30);
-            $estado_pais = safeSubstr($sheet->getCell('AU' . $row)->getCalculatedValue(), 0, 25);
+            $nivel = safeSubstr($sheet->getCell('AS' . $row)->getCalculatedValue(), 0, 5);
+            $institucion = safeSubstr($sheet->getCell('AT' . $row)->getCalculatedValue(), 0, 50);
+            $estado_pais = safeSubstr($sheet->getCell('AU' . $row)->getCalculatedValue(), 0, 50);
             $año = intval($sheet->getCell('AV' . $row)->getCalculatedValue());
-            $gdo_exp = safeSubstr($sheet->getCell('AW' . $row)->getCalculatedValue(), 0, 15);
+            $gdo_exp = safeSubstr($sheet->getCell('AW' . $row)->getCalculatedValue(), 0, 25);
             $otro_grado = safeSubstr($sheet->getCell('AX' . $row)->getCalculatedValue(), 0, 5);
             $otro_programa = safeSubstr($sheet->getCell('AY' . $row)->getCalculatedValue(), 0, 70);
             $otro_nivel = safeSubstr($sheet->getCell('AZ' . $row)->getCalculatedValue(), 0, 10);
             $otro_institucion = safeSubstr($sheet->getCell('BA' . $row)->getCalculatedValue(), 0, 30);
             $otro_estado_pais = safeSubstr($sheet->getCell('BB' . $row)->getCalculatedValue(), 0, 25);
             $otro_año = intval($sheet->getCell('BC' . $row)->getCalculatedValue());
-            $otro_gdo_exp = safeSubstr($sheet->getCell('BD' . $row)->getCalculatedValue(), 0, 15);
+            $otro_gdo_exp = safeSubstr($sheet->getCell('BD' . $row)->getCalculatedValue(), 0, 25);
             $otro_grado_alternativo = safeSubstr($sheet->getCell('BE' . $row)->getCalculatedValue(), 0, 5);
             $otro_programa_alternativo = safeSubstr($sheet->getCell('BF' . $row)->getCalculatedValue(), 0, 70);
             $otro_nivel_alternativo = safeSubstr($sheet->getCell('BG' . $row)->getCalculatedValue(), 0, 10);
@@ -141,10 +142,10 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
             $proesde_24_25 = safeSubstr($sheet->getCell('BL' . $row)->getCalculatedValue(), 0, 15);
             $a_partir_de = convertExcelDate($sheet->getCell('BM' . $row)->getCalculatedValue());
             $fecha_ingreso = convertExcelDate($sheet->getCell('BN' . $row)->getCalculatedValue());
-            $antiguedad = safeSubstr($sheet->getCell('BO' . $row)->getCalculatedValue(), 0, 25);
+            $antiguedad = safeSubstr($sheet->getCell('BO' . $row)->getCalculatedValue(), 0, 5);
 
             $stmt->bind_param(
-                "sssssssssissssisssssssssiissississssssissssssssissssssissssssisssss",
+                "sssssssssissssisssssssssssssississssssissssssssissssssissssssisssss",
                 $codigo,
                 $paterno,
                 $materno,
