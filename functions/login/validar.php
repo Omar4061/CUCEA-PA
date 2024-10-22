@@ -4,7 +4,7 @@ $pass = $_POST['pass'];
 session_start();
 $_SESSION['email'] = $email;
 
-$conexion = mysqli_connect("localhost", "pa", "hyXbFnAYRH63yU", "pa");
+$conexion = mysqli_connect("localhost", "root", "root", "pa");
 
 // Obtenemos el salt y el hash almacenado para el usuario
 $consulta = "SELECT Codigo, Pass FROM Usuarios WHERE Correo = ?";
